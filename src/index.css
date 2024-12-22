@@ -6,6 +6,14 @@
 @tailwind utilities;
 
 @layer base {
+  .font-body {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .font-heading {
+    font-family: 'Bayon', sans-serif;
+  }
+
   html {
     @apply h-full;
     scroll-behavior: smooth;

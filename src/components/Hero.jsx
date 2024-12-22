@@ -1,5 +1,5 @@
 import { Link } from 'react-scroll';
-import heroImage from '../assets/photoportofolio.jpg';
+import heroImage from '../assets/image.png';
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { TextPlugin } from 'gsap/TextPlugin';
@@ -45,7 +45,7 @@ const Hero = () => {
                 className="relative h-full"
               >
                 <div
-                  className="absolute inset-0 h-full w-px bg-gradient-to-b from-transparent via-gray-700/30 to-transparent"
+                  className="absolute inset-0 h-full w-px "
                   style={{
                     left: '50%',
                     transform: 'translateX(-50%)',
@@ -90,14 +90,14 @@ const Hero = () => {
             </div>
           </div>
           <div className="relative flex flex-col items-center">
-            <div className="rounded-full overflow-hidden shadow-xl border-4 border-primary w-80 h-80">
+            <div className=" w-[600px] h-[600px]">
               <img
                 src={heroImage}
                 alt="Developer"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
               />
             </div>
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-full w-80 h-80" />
+            <div className="absolute inset-0  w-[600px] h-[600px]" />
           </div>
         </div>
       </div>
