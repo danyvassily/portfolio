@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Bayon&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
@@ -6,15 +7,20 @@
 
 @layer base {
   html {
+    @apply h-full;
     scroll-behavior: smooth;
   }
   
   body {
-    @apply bg-black text-white;
+    @apply min-h-full bg-black text-white overflow-x-hidden font-body;
+  }
+
+  #root {
+    @apply min-h-full;
   }
 
   h1, h2, h3 {
-    @apply font-bold tracking-tight;
+    @apply font-heading font-bold tracking-tight;
   }
 
   h1 {
@@ -28,7 +34,7 @@
   }
 
   p {
-    @apply text-gray-100 text-lg leading-relaxed;
+    @apply text-gray-100 text-lg leading-relaxed font-body;
     text-shadow: 0 0 20px rgba(255,255,255,0.2);
   }
 }

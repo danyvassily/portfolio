@@ -5,28 +5,26 @@ import About from './components/About'
 import Skills from './components/Skills'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
-import BackgroundBeams from './components/BackgroundBeams'
+import { AuroraBackground } from "./components/AuroraBackground";
 
 function App() {
-  const [darkMode, setDarkMode] = useState(true)
-
   return (
-    <div className={darkMode ? 'dark' : ''}>
-      <BackgroundBeams />
+    <div>
+      <div className="fixed inset-0 w-full h-full -z-10">
+        <AuroraBackground className="w-full h-full" />
+      </div>
       <div className="relative min-h-screen">
-        <div className="relative z-10">
-          <Header />
-          <main>
-            <Hero />
-            <About />
-            <Skills />
-            <Contact />
-          </main>
-          <Footer />
-        </div>
+        <Header />
+        <main className="relative z-10">
+          <Hero />
+          <About />
+          <Skills />
+          <Contact />
+        </main>
+        <Footer />
       </div>
     </div>
-  )
+  );
 }
 
 export default App

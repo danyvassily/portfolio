@@ -1,35 +1,49 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {
       colors: {
-        primary: '#4169E1',
-        secondary: '#1E293B',
+        'text': '#112106',
+        'background': '#fcfefb',
+        'primary': '#6fdb2d',
+        'secondary': '#aa87ea',
+        'accent': '#e461b7',
+      },
+      fontSize: {
+        sm: '0.707rem',
+        base: '1rem',
+        xl: '1.414rem',
+        '2xl': '1.999rem',
+        '3xl': '2.827rem',
+        '4xl': '3.997rem',
+        '5xl': '5.652rem',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        heading: 'Bayon',
+        body: 'Bayon',
+      },
+      fontWeight: {
+        normal: '400',
+        bold: '700',
       },
       animation: {
-        'pulse': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'pulse-fast': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        aurora: "aurora 60s linear infinite",
       },
       keyframes: {
-        pulse: {
-          '0%, 100%': {
-            opacity: 0.8
+        aurora: {
+          from: {
+            transform: "rotate(12deg)",
           },
-          '50%': {
-            opacity: 0.4
+          to: {
+            transform: "rotate(360deg)",
           }
         }
-      }
+      },
     },
   },
   plugins: [],
-  darkMode: 'class',
 }
 

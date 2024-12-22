@@ -1,18 +1,51 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { SiGmail } from 'react-icons/si';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
+  const form = useRef();
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState({ type: '', message: '' });
   const [formData, setFormData] = useState({
-    name: '',
+    from_name: '',
     email: '',
     message: '',
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Implement form submission logic here
-    console.log('Form submitted:', formData);
+    setLoading(true);
+    setStatus({ type: '', message: '' });
+
+    try {
+      const result = await emailjs.sendForm(
+        'service_mkhdazt',
+        'template_fbt6iau',
+        form.current,
+        'zxy1ZFpkoSYUvUs6C'
+      );
+
+      console.log('Résultat EmailJS:', result);
+
+      if (result.text === 'OK') {
+        setStatus({
+          type: 'success',
+          message: 'Message envoyé avec succès!'
+        });
+        setFormData({ from_name: '', email: '', message: '' });
+      } else {
+        throw new Error('Échec de l\'envoi');
+      }
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi:', error);
+      setStatus({
+        type: 'error',
+        message: 'Une erreur est survenue. Veuillez réessayer.'
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -34,19 +67,19 @@ const Contact = () => {
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-16">Contact</h2>
         <div className="max-w-3xl mx-auto">
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form ref={form} onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium mb-2">
+              <label htmlFor="from_name" className="block text-sm font-medium mb-2">
                 Nom
               </label>
               <input
                 type="text"
-                id="name"
-                name="name"
-                value={formData.name}
+                id="from_name"
+                name="from_name"
+                value={formData.from_name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 rounded-lg border dark:bg-gray-700 dark:border-gray-600 focus:ring-2 focus:ring-primary"
+                className="w-full px-4 py-2 rounded-lg border text-gray-900 dark:text-white dark:bg-gray-700 dark:border-gray-600 focus:ring-2 focus:ring-primary"
               />
             </div>
             <div>
@@ -60,7 +93,7 @@ const Contact = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 rounded-lg border dark:bg-gray-700 dark:border-gray-600 focus:ring-2 focus:ring-primary"
+                className="w-full px-4 py-2 rounded-lg border text-gray-900 dark:text-white dark:bg-gray-700 dark:border-gray-600 focus:ring-2 focus:ring-primary"
               />
             </div>
             <div>
@@ -74,15 +107,24 @@ const Contact = () => {
                 onChange={handleChange}
                 required
                 rows={6}
-                className="w-full px-4 py-2 rounded-lg border dark:bg-gray-700 dark:border-gray-600 focus:ring-2 focus:ring-primary"
+                className="w-full px-4 py-2 rounded-lg border text-gray-900 dark:text-white dark:bg-gray-700 dark:border-gray-600 focus:ring-2 focus:ring-primary"
               />
             </div>
             <button
               type="submit"
-              className="w-full btn-primary"
+              disabled={loading}
+              className="w-full btn-primary disabled:opacity-50"
             >
-              Envoyer le message
+              {loading ? 'Envoi en cours...' : 'Envoyer le message'}
             </button>
+
+            {status.message && (
+              <div className={`mt-4 p-4 rounded-lg ${
+                status.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+              }`}>
+                {status.message}
+              </div>
+            )}
           </form>
 
           <div className="mt-12">
